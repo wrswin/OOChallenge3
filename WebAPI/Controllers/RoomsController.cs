@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
     public class RoomsController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Room> Get([FromServices] IConfiguration configuration)
+        public IEnumerable<Room> GetAll([FromServices] IConfiguration configuration)
         {
             using (var connection = new SqlConnection(configuration.GetConnectionString("Database")))
             {
@@ -27,6 +27,32 @@ namespace WebAPI.Controllers
                 var rooms = new List<Room>();
 
                 while(reader.Read())
+                {
+                    rooms.Add(new Room(
+                        (string)reader["Building"],
+                        (int)reader["RoomNo"],
+                        (int)reader["Capacity"]
+                    ));
+                }
+
+                return rooms;
+            }
+        }
+
+        [HttpGet("unused")]
+        public IEnumerable<Room> GetUnused([FromServices] IConfiguration configuration)
+        {
+            using (var connection = new SqlConnection(configuration.GetConnectionString("Database")))
+            {
+                connection.Open();
+
+                var command = new SqlCommand("SELECT * FROM [Room] R WHERE (SELECT COUNT(*) FROM [Class] C WHERE C.RoomNo = R.RoomNo) = 0", connection);
+
+                var reader = command.ExecuteReader();
+
+                var rooms = new List<Room>();
+
+                while (reader.Read())
                 {
                     rooms.Add(new Room(
                         (string)reader["Building"],
