@@ -35,6 +35,8 @@ namespace WebAPI.Controllers
                     ));
                 }
 
+                reader.Close();
+
                 return rooms;
             }
         }
@@ -60,6 +62,8 @@ namespace WebAPI.Controllers
                         (int)reader["Capacity"]
                     ));
                 }
+
+                reader.Close();
 
                 return rooms;
             }
