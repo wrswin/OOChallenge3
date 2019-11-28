@@ -14,6 +14,8 @@ namespace WebAPI
 {
     public class Startup
     {
+        public static string ConnectionString = "Server=tcp:civapi.database.windows.net,1433;Initial Catalog=civapi;User ID=civ_user;Password=Monday1330;";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
