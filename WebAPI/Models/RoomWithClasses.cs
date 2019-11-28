@@ -9,9 +9,9 @@ namespace WebAPI.Models
     {
         public ICollection<Class> Classes { get; set; }
 
-        public RoomWithClasses(string building, int roomNo, int capacity, ICollection<Class> classes) : base(building, roomNo, capacity)
+        public RoomWithClasses(string building, int roomNo, int capacity) : base(building, roomNo, capacity)
         {
-            Classes = classes;
+            
         }
     }
 }
