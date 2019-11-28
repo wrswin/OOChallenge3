@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
             {
                 connection.Open();
 
-                var command = new SqlCommand("SELECT * FROM [Room] R WHERE (SELECT COUNT(*) FROM [Class] C WHERE C.RoomNo = R.RoomNo) = 0", connection);
+                var command = new SqlCommand("SELECT * FROM [Room] R WHERE (SELECT COUNT(*) FROM [Class] C WHERE C.RoomNo = R.RoomNo and C.Building = R.Building) = 0", connection);
 
                 var reader = command.ExecuteReader();
 
